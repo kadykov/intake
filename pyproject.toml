@@ -36,7 +36,8 @@ classifiers = [
 dependencies = [
   "fsspec >=2023.0.0",
   "pyyaml",
-  "appdirs"
+  "appdirs",
+  "universal_pathlib"
 ]
 
 [tool.setuptools_scm]

@@ -41,3 +41,4 @@ dependencies:
   - pytest-postgresql
   - psycopg
   - siphon
+  - universal_pathlib
