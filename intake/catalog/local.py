@@ -5,14 +5,13 @@
 # The full license is in the LICENSE file, distributed with this software.
 # -----------------------------------------------------------------------------
 import collections
-from importlib.metadata import entry_points
 import inspect
 import logging
 import os
 import warnings
+from importlib.metadata import entry_points
 
-from fsspec import get_filesystem_class, open_files
-from fsspec.core import split_protocol
+from fsspec import open_files
 
 from .. import __version__
 from ..source import get_plugin_class, register_driver
@@ -571,17 +570,7 @@ class CatalogParser(object):
 
 
 def get_dir(path):
-    if "://" in path:
-        protocol, _ = split_protocol(path)
-        out = get_filesystem_class(protocol)._parent(path)
-        if "://" not in out:
-            # some FSs strip this, some do not
-            out = protocol + "://" + out
-        return out
-    path = make_path_posix(os.path.join(os.getcwd(), os.path.dirname(path)))
-    if path[-1] != "/":
-        path += "/"
-    return path
+    return os.path.dirname(path)
 
 
 class YAMLFileCatalog(Catalog):
